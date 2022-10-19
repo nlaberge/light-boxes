@@ -68,17 +68,19 @@ void BrightnessBoxes::oscillateRightLeft() {
 }
 
 void BrightnessBoxes::setModeBox(Box box, BrightnessMode brightnessMode) {
-  Box *b = boxes.get_box_ref(box.box_index);
+  Box *b = boxes.get_box_ref(box.get_box_info()->boxIndex);
   b->setBrightnessMode(brightnessMode);
 }
 
 void BrightnessBoxes::setModeBoxes(BrightnessMode brightnessMode) {
   for (int i = 0; i < boxes.num_boxes; i++)
   {
-    Box b = boxes.get_box(i);
-    setModeBox(b, brightnessMode);
+    Box *b = boxes.get_box_ref(i);
+    b->cycleBrightnessMode();
+    // setModeBox(b, brightnessMode);
   }
 }
+
 
 void BrightnessBoxes::cycleModeBoxes() {
   Box b = boxes.get_box(0);

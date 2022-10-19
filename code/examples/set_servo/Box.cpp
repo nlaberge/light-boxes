@@ -1,7 +1,7 @@
 
 #include "Box.h"
 
-Box::Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s, int box_index){
+Box::Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s){
   top_left=a;
   bottom_left=b;
   bottom_right=c;
@@ -13,7 +13,6 @@ Box::Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s, int box_index)
   boxInfo.colorMode = StaticRainbow;
   boxInfo.waveMode = Open;
   boxInfo.brightnessMode = On;
-  box_index = box_index;
 };
 
 void Box::set_top_right(CRGB color){
@@ -74,6 +73,7 @@ void Box::cycleColorMode(){
     break;
   case StaticRainbow:
     *modeRef = Black;
+    break;
   default:
     *modeRef = Black;
     break;
@@ -91,6 +91,7 @@ void Box::cycleWaveMode(){
     break;
   case Closed:
     *modeRef = Open;
+    break;
   default:
     *modeRef = Open;
     break;
@@ -108,6 +109,7 @@ void Box::cycleBrightnessMode(){
     break;
   case On:
     *modeRef = ByServo;
+    break;
   default:
     *modeRef = On;
     break;
@@ -124,10 +126,13 @@ void Box::setWaveMode(WaveMode waveMode){
   WaveMode* modeRef = &((*boxInfoRef).waveMode);
   *modeRef = waveMode;
 }
+
 void Box::setBrightnessMode(BrightnessMode brightnessMode){
   BoxInfo* boxInfoRef = &boxInfo;
   BrightnessMode* modeRef = &((*boxInfoRef).brightnessMode);
   *modeRef = brightnessMode;
 }
+
+
 
 

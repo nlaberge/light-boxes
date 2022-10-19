@@ -165,9 +165,7 @@ void Controller::mirror_row_open_closed_status(int row){
   {
     Box box = boxes.get_box(i);
     int theta = box.read_servo();
-    // Serial.println(theta);
     theta = map(theta, box.servo_min, box.servo_max,5,255);
-    Serial.println(theta);
     CRGB c = CRGB(theta, theta, theta);
     set_led(row, i+1,c);
   }
@@ -220,8 +218,11 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
       else
       {
         int box_i_to_update = bp_col-1;
-        Box box_to_update = boxes.get_box(box_i_to_update);
-        brightnessBoxes.cycleModeBox(box_to_update);
+        Box *box_to_update = boxes.get_box_ref(box_i_to_update);
+        brightnessBoxes.cycleModeBox(*box_to_update); //only works for box 0!
+        Serial.print(box_i_to_update);
+        Serial.print(box_to_update->boxInfo.boxIndex);
+        Serial.println(box_to_update->boxInfo.brightnessMode);
         // box_to_update->cycleBrightnessMode();
       }
     }

@@ -15,7 +15,6 @@ void ColorBoxes::staticRainbow() {
 
 void ColorBoxes::staticRainbow(Box box) {
   int box_iii = box.boxInfo.boxIndex;
-  Serial.print(box_iii);
   CRGB rainbow_colors[boxes.num_boxes];
   fill_rainbow(rainbow_colors,boxes.num_boxes,0,255/boxes.num_boxes);
   box.set_all(rainbow_colors[box_iii]);

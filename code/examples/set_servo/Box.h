@@ -14,8 +14,7 @@ public:
   uint8_t servo_max;
   uint8_t servo_min;
   BoxInfo boxInfo;
-  int box_index;
-  Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s, int box_index);
+  Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s);
   void set_top_right(CRGB color);
   void set_bottom_right(CRGB color);
   void set_top_left(CRGB color);
