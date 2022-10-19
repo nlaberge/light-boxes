@@ -62,24 +62,6 @@ BoxInfo* Box::get_box_info(){
   return &boxInfo;
 }
 
-void Box::cycleColorMode(){
-  ColorMode mode = boxInfo.colorMode;
-  BoxInfo* boxInfoRef = &boxInfo;
-  ColorMode* modeRef = &((*boxInfoRef).colorMode);
-  switch (mode)
-  {
-  case Black:
-    *modeRef = StaticRainbow;
-    break;
-  case StaticRainbow:
-    *modeRef = Black;
-    break;
-  default:
-    *modeRef = Black;
-    break;
-  }
-}
-
 void Box::setColorMode(ColorMode colorMode){
   BoxInfo* boxInfoRef = &boxInfo;
   ColorMode* modeRef = &((*boxInfoRef).colorMode);

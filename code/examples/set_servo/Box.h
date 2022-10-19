@@ -29,8 +29,6 @@ public:
   void set_servo(int pos);
   int read_servo();
   BoxInfo* get_box_info();
-
-  void cycleColorMode();
   
   void setColorMode(ColorMode colorMode);
   void setWaveMode(WaveMode waveMode);

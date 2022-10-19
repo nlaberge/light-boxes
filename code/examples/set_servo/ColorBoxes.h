@@ -11,12 +11,12 @@ class ColorBoxes {
     ColorBoxes(Boxes bxs);
     void staticRainbow();
     void staticRainbow(Box box) ;
+    void setModeBox(Box box, ColorMode colorMode);
     void setModeBoxes(ColorMode colorMode);
     void cycleModeBoxes();
-
+    ColorMode cycleModeBox(Box box);
     void tickBoxFromInfo(Box box);
     void tickBoxesFromInfo(Boxes boxes);
-    void cycleMode(Box box);
   
   private:
 };

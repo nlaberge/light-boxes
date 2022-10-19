@@ -20,40 +20,45 @@ void ColorBoxes::staticRainbow(Box box) {
   box.set_all(rainbow_colors[box_iii]);
 }
 
+void ColorBoxes::setModeBox(Box box, ColorMode colorMode) {
+  Box *b = boxes.get_box_ref(box.get_box_info()->boxIndex);
+  b->setColorMode(colorMode);
+}
+
 void ColorBoxes::setModeBoxes(ColorMode colorMode) {
   for (int i = 0; i < boxes.num_boxes; i++)
   {
-    Box *b = boxes.get_box_ref(i);
-    b->setColorMode(colorMode);
+    Box b = boxes.get_box(i);
+    setModeBox(b, colorMode);
   }
 }
 
-void ColorBoxes::cycleModeBoxes() {
-  Box b = boxes.get_box(0);
-  ColorMode colorMode = b.get_box_info()->colorMode;
+ColorMode ColorBoxes::cycleModeBox(Box box) {
+  ColorMode colorMode = box.get_box_info()->colorMode;
   switch (colorMode)
   {
   case Black:
-    setModeBoxes(StaticRainbow);
+    setModeBox(box, StaticRainbow);
+    return StaticRainbow;
     break;
   case StaticRainbow:
-    setModeBoxes(Black);
+    setModeBox(box, Black);
+    return Black;
     break;
+
   default:
-    setModeBoxes(StaticRainbow);
+    setModeBox(box, Black);
+    return Black;
   }
 }
 
-
 void ColorBoxes::tickBoxFromInfo(Box box) {
   BoxInfo* boxInfo = box.get_box_info();
-  
   switch (boxInfo->colorMode)
   {
   case Black:
     box.set_all(CRGB::Black);
     break;
-  
   case StaticRainbow:
     staticRainbow(box);
     break;
@@ -65,6 +70,4 @@ void ColorBoxes::tickBoxesFromInfo(Boxes boxes) {
   {
     tickBoxFromInfo(boxes.get_box(i));
   }
-  
 }
-
