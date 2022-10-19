@@ -32,12 +32,12 @@ Adafruit_TiCoServo myservo4;  // create servo object to control a servo
 Adafruit_TiCoServo myservo5;  // create servo object to control a servo
 
 //construct box objects
-Box box0(&leds[23],&leds[22],&leds[21],&leds[20],&myservo0,0); //furthest left
-Box box1(&leds[19],&leds[18],&leds[17],&leds[16],&myservo1,1);
-Box box2(&leds[15],&leds[14],&leds[13],&leds[12],&myservo2,2);
-Box box3(&leds[11],&leds[10],&leds[9],&leds[8],&myservo3,3);
-Box box4(&leds[7],&leds[6],&leds[5],&leds[4],&myservo4,4);
-Box box5(&leds[3],&leds[2],&leds[1],&leds[0],&myservo5,5); //furthest right
+Box box0(&leds[23],&leds[22],&leds[21],&leds[20],&myservo0); //furthest left
+Box box1(&leds[19],&leds[18],&leds[17],&leds[16],&myservo1);
+Box box2(&leds[15],&leds[14],&leds[13],&leds[12],&myservo2);
+Box box3(&leds[11],&leds[10],&leds[9],&leds[8],&myservo3);
+Box box4(&leds[7],&leds[6],&leds[5],&leds[4],&myservo4);
+Box box5(&leds[3],&leds[2],&leds[1],&leds[0],&myservo5); //furthest right
 
 //construct boxes object
 Boxes boxes = Boxes(&box0,&box1,&box2,&box3,&box4,&box5);
@@ -71,8 +71,6 @@ void setup() {
   controller.set_all(CRGB::Black); //set neotrellis black
   controller.tick();
 }
-
-
 
 void loop(){
   // CRGB c0 = (*box0.top_left);
