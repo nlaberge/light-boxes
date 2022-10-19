@@ -22,11 +22,41 @@ void WaveBoxes::runHalfPeriodOffset() {
   }
 }
 
+void WaveBoxes::setModeBox(Box box, WaveMode waveMode) {
+  Box *b = boxes.get_box_ref(box.get_box_info()->boxIndex);
+  b->setWaveMode(waveMode);
+}
+
 void WaveBoxes::setModeBoxes(WaveMode waveMode) {
   for (int i = 0; i < boxes.num_boxes; i++)
   {
-    Box *b = boxes.get_box_ref(i);
-    b->setWaveMode(waveMode);
+    Box b = boxes.get_box(i);
+    setModeBox(b, waveMode);
+  }
+}
+
+void WaveBoxes::cycleModeBoxes() {
+  Box b = boxes.get_box(0);
+  WaveMode waveMode = cycleModeBox(b);
+  setModeBoxes(waveMode);
+}
+
+WaveMode WaveBoxes::cycleModeBox(Box b) {
+  WaveMode waveMode = b.get_box_info()->waveMode;
+  switch (waveMode)
+  {
+  case Open:
+    setModeBox(b, Closed);
+    return Closed;
+    break;
+  case Closed:
+    setModeBox(b, Open);
+    return Open;
+    break;
+
+  default:
+    setModeBox(b, Open);
+    return Open;
   }
 }
 

@@ -219,7 +219,7 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
       {
         int box_i_to_update = bp_col-1;
         Box *box_to_update = boxes.get_box_ref(box_i_to_update);
-        brightnessBoxes.cycleModeBox(*box_to_update); //only works for box 0!
+        brightnessBoxes.cycleModeBox(*box_to_update); 
       }
     }
     if (bp_row==1) //handle second row (open/close)
@@ -239,7 +239,7 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
       {
         int box_i_to_update = bp_col-1;
         Box* box_to_update = boxes.get_box_ref(box_i_to_update);
-        box_to_update->cycleWaveMode();
+        waveBoxes.cycleModeBox(*box_to_update); 
       }
       
     }

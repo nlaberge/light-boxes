@@ -76,8 +76,7 @@ void BrightnessBoxes::setModeBoxes(BrightnessMode brightnessMode) {
   for (int i = 0; i < boxes.num_boxes; i++)
   {
     Box b = boxes.get_box(i);
-    // b->cycleBrightnessMode();
-    setModeBox(b, brightnessMode);\
+    setModeBox(b, brightnessMode);
   }
 }
 

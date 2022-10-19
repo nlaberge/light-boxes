@@ -80,25 +80,6 @@ void Box::cycleColorMode(){
   }
 }
 
-void Box::cycleWaveMode(){
-  WaveMode mode = boxInfo.waveMode;
-  BoxInfo* boxInfoRef = &boxInfo;
-  WaveMode* modeRef = &((*boxInfoRef).waveMode);
-  switch (mode)
-  {
-  case Open:
-    *modeRef = Closed;
-    break;
-  case Closed:
-    *modeRef = Open;
-    break;
-  default:
-    *modeRef = Open;
-    break;
-  }
-}
-
-
 void Box::setColorMode(ColorMode colorMode){
   BoxInfo* boxInfoRef = &boxInfo;
   ColorMode* modeRef = &((*boxInfoRef).colorMode);

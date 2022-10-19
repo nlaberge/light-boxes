@@ -31,7 +31,6 @@ public:
   BoxInfo* get_box_info();
 
   void cycleColorMode();
-  void cycleWaveMode();
   
   void setColorMode(ColorMode colorMode);
   void setWaveMode(WaveMode waveMode);
