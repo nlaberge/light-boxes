@@ -98,23 +98,6 @@ void Box::cycleWaveMode(){
   }
 }
 
-void Box::cycleBrightnessMode(){
-  BrightnessMode mode = boxInfo.brightnessMode;
-  BoxInfo* boxInfoRef = &boxInfo;
-  BrightnessMode* modeRef = &((*boxInfoRef).brightnessMode);
-  switch (mode)
-  {
-  case ByServo:
-    *modeRef = On;
-    break;
-  case On:
-    *modeRef = ByServo;
-    break;
-  default:
-    *modeRef = On;
-    break;
-  }
-}
 
 void Box::setColorMode(ColorMode colorMode){
   BoxInfo* boxInfoRef = &boxInfo;

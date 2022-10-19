@@ -32,7 +32,6 @@ public:
 
   void cycleColorMode();
   void cycleWaveMode();
-  void cycleBrightnessMode();
   
   void setColorMode(ColorMode colorMode);
   void setWaveMode(WaveMode waveMode);

@@ -220,10 +220,6 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
         int box_i_to_update = bp_col-1;
         Box *box_to_update = boxes.get_box_ref(box_i_to_update);
         brightnessBoxes.cycleModeBox(*box_to_update); //only works for box 0!
-        Serial.print(box_i_to_update);
-        Serial.print(box_to_update->boxInfo.boxIndex);
-        Serial.println(box_to_update->boxInfo.brightnessMode);
-        // box_to_update->cycleBrightnessMode();
       }
     }
     if (bp_row==1) //handle second row (open/close)

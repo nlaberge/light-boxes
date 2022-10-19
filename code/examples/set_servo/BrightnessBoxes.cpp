@@ -131,7 +131,6 @@ void BrightnessBoxes::tickBoxFromInfo(Box box) {
   }
 }
 
-
 void BrightnessBoxes::tickBoxesFromInfo(Boxes boxes) {
   for (int i = 0; i < boxes.num_boxes; i++)
   {

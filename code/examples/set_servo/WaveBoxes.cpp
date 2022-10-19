@@ -50,5 +50,4 @@ void WaveBoxes::tickBoxesFromInfo(Boxes boxes) {
   {
     tickBoxFromInfo(boxes.get_box(i));
   }
-  
 }
