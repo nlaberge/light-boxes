@@ -81,43 +81,33 @@ void BrightnessBoxes::setModeBoxes(BrightnessMode brightnessMode) {
   }
 }
 
-
 void BrightnessBoxes::cycleModeBoxes() {
   Box b = boxes.get_box(0);
-  BrightnessMode brightnessMode = b.get_box_info()->brightnessMode;
-  switch (brightnessMode)
-  {
-  case On:
-    setModeBoxes(ByServo);
-    break;
-  case ByServo:
-    setModeBoxes(On);
-    break;
-
-  default:
-    setModeBoxes(On);
-  }
+  BrightnessMode brightnessMode = cycleModeBox(b);
+  setModeBoxes(brightnessMode);
 }
 
-void BrightnessBoxes::cycleModeBox(Box b) {
+BrightnessMode BrightnessBoxes::cycleModeBox(Box b) {
   BrightnessMode brightnessMode = b.get_box_info()->brightnessMode;
   switch (brightnessMode)
   {
   case On:
     setModeBox(b, ByServo);
+    return ByServo;
     break;
   case ByServo:
     setModeBox(b, On);
+    return On;
     break;
 
   default:
     setModeBox(b, On);
+    return On;
   }
 }
 
 void BrightnessBoxes::tickBoxFromInfo(Box box) {
   BoxInfo* boxInfo = box.get_box_info();
-  
   switch (boxInfo->brightnessMode)
   {
   case On:

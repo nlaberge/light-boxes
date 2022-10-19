@@ -16,7 +16,7 @@ class BrightnessBoxes {
     void setModeBox(Box box, BrightnessMode brightnessMode);
     void setModeBoxes(BrightnessMode brightnessMode);
     void cycleModeBoxes();
-    void cycleModeBox(Box box);
+    BrightnessMode cycleModeBox(Box box);
     void tickBoxFromInfo(Box box);
     void tickBoxesFromInfo(Boxes boxes);
   private:
