@@ -6,7 +6,7 @@ ColorBoxes::ColorBoxes(Boxes bxs){
 
 DEFINE_GRADIENT_PALETTE( heatmap_gp ) {
   0,     0,    212,  255,   //cyan
-  128,   255,  0,    170,   //pink
+  127,   255,  0,    170,   //pink
   255,   0,    212,  255}; //cyan
 
 void ColorBoxes::staticRainbow() {
@@ -27,7 +27,7 @@ void ColorBoxes::staticRainbow(Box box) {
 
 void ColorBoxes::setBoxToPalette(Box box, CRGBPalette16 palette, uint8_t offset){
   uint8_t box_index = box.boxInfo.boxIndex;
-  uint8_t palIndex = ((255/boxes.num_boxes)*box_index)+offset;
+  uint8_t palIndex = ((255/(boxes.num_boxes - 1))*box_index)+offset;
   CRGB c = ColorFromPalette( palette, palIndex);
   box.set_all(c);
 }
