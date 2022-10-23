@@ -243,6 +243,18 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
       }
       
     }
+    if (bp_row==2) //handle third row (cycle color forward)
+    {
+      if (bp_col== 0 || bp_col== 7)
+      {
+      colorBoxes.setModeBoxes(GradientPalette_cute);
+      }
+      else
+      {
+      colorBoxes.setModeBoxes(GradientPalette_cute);
+      }
+      
+    }
   }
 }
 

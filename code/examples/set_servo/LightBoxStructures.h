@@ -5,6 +5,7 @@
 enum ColorMode {
   Black,
   StaticRainbow,
+  GradientPalette_cute,
 };
 
 enum WaveMode {
@@ -25,17 +26,6 @@ struct BoxInfo
   WaveMode waveMode;
   BrightnessMode brightnessMode;
 };
-
-
-// struct BoxesInfo
-// {
-//   BoxInfo b0;
-//   BoxInfo b1;
-//   BoxInfo b2;
-//   BoxInfo b3;
-//   BoxInfo b4;
-//   BoxInfo b5;
-// };
 
 
 struct ButtonPress
@@ -63,3 +53,4 @@ struct TrellisLeds {
     LedRow row2;
     LedRow row3;
 };
+
