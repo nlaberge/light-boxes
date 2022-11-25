@@ -9,12 +9,12 @@ DEFINE_GRADIENT_PALETTE( gp_cute ) {
   127,   255,  0,    170,   //pink
   255,   0,    212,  255}; //cyan
 
-// CRGBPalette16  lavaPalette = CRGBPalette16(
-//   CRGB::DarkRed,  CRGB::Maroon,   CRGB::DarkRed,  CRGB::Maroon,
-//   CRGB::DarkRed,  CRGB::Maroon,   CRGB::DarkRed,  CRGB::DarkRed,
-//   CRGB::DarkRed,  CRGB::DarkRed,  CRGB::Red,      CRGB::Orange,
-//   CRGB::Black,    CRGB::Orange,   CRGB::Red,      CRGB::DarkRed
-// );
+CRGBPalette16  lavaPalette = CRGBPalette16(
+  CRGB::DarkRed,  CRGB::Maroon,   CRGB::DarkRed,  CRGB::Maroon,
+  CRGB::DarkRed,  CRGB::Orange,   CRGB::DarkRed,  CRGB::DarkRed,
+  CRGB::DarkRed,  CRGB::Orange,  CRGB::Orange,      CRGB::Yellow,
+  CRGB::Black,    CRGB::Orange,   CRGB::Red,      CRGB::DarkRed
+);
 
 void ColorBoxes::staticRainbow() {
   CRGB rainbow_colors[boxes.num_boxes];
@@ -48,11 +48,12 @@ void ColorBoxes::setBoxesToPalette(CRGBPalette16 palette, uint8_t offset){
 }
 
 void ColorBoxes::setBoxToPaletteNoise(Box box, CRGBPalette16 myPal){
-  uint16_t brightnessScale = 150;
-  uint16_t indexScale = 100;
-  int i = 0;
+  uint16_t brightnessScale = 25;
+  uint16_t indexScale = 25;
+  // int i = 0;
+  int i = box.boxInfo.boxIndex;
   uint8_t brightness = inoise8(i * brightnessScale, millis() / 5);
-  uint8_t index = inoise8(i * indexScale, millis() /10);
+  uint8_t index = inoise8(i * indexScale, millis()/10);
   CRGB c = ColorFromPalette(myPal, index, brightness);
   // CRGB c = CRGB::Purple;
   box.set_all(c);
@@ -131,10 +132,10 @@ void ColorBoxes::tickBoxFromInfo(Box box) {
     setBoxToPalette(box,gp_cute,0);
     break;
   case GradientPalette_cute_flow:
-    setBoxToPalette(box,gp_cute,millis()/5);
+    setBoxToPalette(box,gp_cute,millis()/20);
     break;
   case Lava:
-    setBoxToPaletteNoise(box, gp_cute);
+    setBoxToPaletteNoise(box, lavaPalette);
     break;
   }
 }

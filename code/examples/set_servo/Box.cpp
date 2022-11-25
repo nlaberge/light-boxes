@@ -13,6 +13,7 @@ Box::Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s){
   boxInfo.colorMode = StaticRainbow;
   boxInfo.waveMode = Open;
   boxInfo.brightnessMode = On;
+  boxInfo.servoPin = s->pin; //had to change servo library to make pin public
 };
 
 void Box::set_top_right(CRGB color){
@@ -52,8 +53,20 @@ void Box::fade_all(int fade_by){
   fade_top_left(fade_by);
   fade_bottom_left(fade_by);
 }
+void Box::detach_servo(){
+  servo->detach();
+}
+void Box::attach_servo(){
+  servo->attach(boxInfo.servoPin);
+}
 void Box::set_servo(int pos){
-  servo -> write(pos);
+  int servo_pos = read_servo();
+  // attach_servo();
+  if (servo_pos != pos){
+    servo->write(pos);
+  }
+  // FastLED.delay(200);
+  // detach_servo();
 }
 int Box::read_servo(){
   return servo -> read()+1; //note: setting to 30 reads 29, setting to 100 reads 99, so fixed

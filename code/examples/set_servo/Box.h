@@ -26,6 +26,8 @@ public:
   void fade_top_left(int fade_by);
   void fade_bottom_left(int fade_by);
   void fade_all(int fade_by);
+  void detach_servo();
+  void attach_servo();
   void set_servo(int pos);
   int read_servo();
   BoxInfo* get_box_info();

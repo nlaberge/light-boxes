@@ -27,6 +27,7 @@ struct BoxInfo
   ColorMode colorMode; 
   WaveMode waveMode;
   BrightnessMode brightnessMode;
+  int servoPin;
 };
 
 

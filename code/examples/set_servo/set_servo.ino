@@ -1,6 +1,6 @@
 // #include <Servo.h>
 #include <Adafruit_TiCoServo.h>
-
+#define FASTLED_INTERRUPT_RETRY_COUNT 0
 #include <FastLED.h>
 #include "Box.h"
 #include "Boxes.h"
@@ -23,6 +23,7 @@ uint8_t updateRow = 0;
 
 // Define the array of leds
 CRGB leds[NUM_LEDS];
+CRGB leds_prev[NUM_LEDS];
 
 Adafruit_TiCoServo myservo0;  // create servo object to control a servo
 Adafruit_TiCoServo myservo1;  // create servo object to control a servo
@@ -47,17 +48,17 @@ Boxes boxes = Boxes(&box0,&box1,&box2,&box3,&box4,&box5);
 Controller controller = Controller(boxes);
 
 void setup() {
-  Serial.begin(9600); // open the serial port at 9600 bps:
+  // Serial.begin(9600); // open the serial port at 9600 bps:
   FastLED.setBrightness(255);
   
-  myservo0.attach(2);  
-  myservo1.attach(3);  
-  myservo2.attach(5);  
-  myservo3.attach(6);
-  myservo4.attach(7); 
-  myservo5.attach(8);
+  // myservo0.attach(2);  //flickering is caused by attaching servos to pins
+  // myservo1.attach(3);  
+  // myservo2.attach(5);  
+  // myservo3.attach(6);
+  // myservo4.attach(7); 
+  // myservo5.attach(8);
 
-  FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, BGR>(leds, NUM_LEDS);  // BGR ordering is typical
+  FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, BGR, DATA_RATE_MHZ(24)>(leds, NUM_LEDS);  // BGR ordering is typical
 
   // for i2c comms
   Wire.begin(8);                // join i2c bus with address #8
@@ -72,10 +73,38 @@ void setup() {
   controller.tick();
 }
 
+bool check_if_array_is_equal(
+  CRGB *array1,
+  CRGB *array2,
+  uint8_t array_length
+) {
+  for (uint8_t i = 0; i < array_length; i++) {
+    if (array1[i] != array2[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+CRGB deep_copy_array(
+  CRGB *array1,
+  CRGB *array2,
+  uint8_t array_length
+) {
+  for (uint8_t i = 0; i < array_length; i++) {
+    array2[i] = array1[i];
+  }
+}
+
+
 void loop(){
   // CRGB c0 = (*box0.top_left);
   controller.tick();
-  FastLED.show();
+  if (check_if_array_is_equal(leds, leds_prev, NUM_LEDS) == false) {
+    deep_copy_array(leds, leds_prev, NUM_LEDS);
+    FastLED.show();
+  }
+  // FastLED.show();
 }
 
 void requestEvent(){
