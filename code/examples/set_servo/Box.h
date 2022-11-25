@@ -33,6 +33,5 @@ public:
   void setColorMode(ColorMode colorMode);
   void setWaveMode(WaveMode waveMode);
   void setBrightnessMode(BrightnessMode brightnessMode);
-
 private:
 };

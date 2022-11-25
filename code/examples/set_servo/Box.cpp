@@ -78,7 +78,3 @@ void Box::setBrightnessMode(BrightnessMode brightnessMode){
   BrightnessMode* modeRef = &((*boxInfoRef).brightnessMode);
   *modeRef = brightnessMode;
 }
-
-
-
-

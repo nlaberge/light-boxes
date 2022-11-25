@@ -247,11 +247,11 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
     {
       if (bp_col== 0 || bp_col== 7)
       {
-      colorBoxes.setModeBoxes(GradientPalette_cute);
+      colorBoxes.cycleModeBoxes();
       }
       else
       {
-      colorBoxes.setModeBoxes(GradientPalette_cute);
+      colorBoxes.cycleModeBoxes();
       }
       
     }

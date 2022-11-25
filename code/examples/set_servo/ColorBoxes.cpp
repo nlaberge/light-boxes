@@ -4,10 +4,17 @@ ColorBoxes::ColorBoxes(Boxes bxs){
   boxes = bxs;
 };
 
-DEFINE_GRADIENT_PALETTE( heatmap_gp ) {
+DEFINE_GRADIENT_PALETTE( gp_cute ) {
   0,     0,    212,  255,   //cyan
   127,   255,  0,    170,   //pink
   255,   0,    212,  255}; //cyan
+
+// CRGBPalette16  lavaPalette = CRGBPalette16(
+//   CRGB::DarkRed,  CRGB::Maroon,   CRGB::DarkRed,  CRGB::Maroon,
+//   CRGB::DarkRed,  CRGB::Maroon,   CRGB::DarkRed,  CRGB::DarkRed,
+//   CRGB::DarkRed,  CRGB::DarkRed,  CRGB::Red,      CRGB::Orange,
+//   CRGB::Black,    CRGB::Orange,   CRGB::Red,      CRGB::DarkRed
+// );
 
 void ColorBoxes::staticRainbow() {
   CRGB rainbow_colors[boxes.num_boxes];
@@ -40,6 +47,25 @@ void ColorBoxes::setBoxesToPalette(CRGBPalette16 palette, uint8_t offset){
   }
 }
 
+void ColorBoxes::setBoxToPaletteNoise(Box box, CRGBPalette16 myPal){
+  uint16_t brightnessScale = 150;
+  uint16_t indexScale = 100;
+  int i = 0;
+  uint8_t brightness = inoise8(i * brightnessScale, millis() / 5);
+  uint8_t index = inoise8(i * indexScale, millis() /10);
+  CRGB c = ColorFromPalette(myPal, index, brightness);
+  // CRGB c = CRGB::Purple;
+  box.set_all(c);
+  // box.fade_all(250);
+}
+
+void ColorBoxes::setBoxesToPaletteNoise(CRGBPalette16 palette){
+  for (int i = 0; i < boxes.num_boxes; i++)
+  {
+    Box box = boxes.get_box(i);
+    setBoxToPaletteNoise(box, palette);
+  }
+}
 
 void ColorBoxes::setModeBox(Box box, ColorMode colorMode) {
   Box *b = boxes.get_box_ref(box.get_box_info()->boxIndex);
@@ -54,6 +80,12 @@ void ColorBoxes::setModeBoxes(ColorMode colorMode) {
   }
 }
 
+void ColorBoxes::cycleModeBoxes() {
+  Box b = boxes.get_box(0);
+  ColorMode colorMode = cycleModeBox(b);
+  setModeBoxes(colorMode);
+}
+
 ColorMode ColorBoxes::cycleModeBox(Box box) {
   ColorMode colorMode = box.get_box_info()->colorMode;
   switch (colorMode)
@@ -63,6 +95,18 @@ ColorMode ColorBoxes::cycleModeBox(Box box) {
     return StaticRainbow;
     break;
   case StaticRainbow:
+    setModeBox(box, GradientPalette_cute);
+    return GradientPalette_cute;
+    break;
+  case GradientPalette_cute:
+    setModeBox(box, GradientPalette_cute_flow);
+    return GradientPalette_cute_flow;
+    break;
+    case GradientPalette_cute_flow:
+    setModeBox(box, Lava);
+    return Lava;
+    break;
+  case Lava:
     setModeBox(box, Black);
     return Black;
     break;
@@ -84,7 +128,13 @@ void ColorBoxes::tickBoxFromInfo(Box box) {
     staticRainbow(box);
     break;
   case GradientPalette_cute:
-    setBoxToPalette(box,heatmap_gp,0);
+    setBoxToPalette(box,gp_cute,0);
+    break;
+  case GradientPalette_cute_flow:
+    setBoxToPalette(box,gp_cute,millis()/5);
+    break;
+  case Lava:
+    setBoxToPaletteNoise(box, gp_cute);
     break;
   }
 }

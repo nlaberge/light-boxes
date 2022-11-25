@@ -33,7 +33,7 @@ void BrightnessBoxes::oscillateTopBottom() {
     b.fade_bottom_left(sinBeat_offset);
     b.fade_bottom_right(sinBeat_offset);
   }
-  FastLED.show();
+  // FastLED.show();
 }
 
 void BrightnessBoxes::oscillateAll() {
@@ -48,7 +48,7 @@ void BrightnessBoxes::oscillateAll() {
     b.fade_bottom_left(sinBeat);
     b.fade_bottom_right(sinBeat);
   }
-  FastLED.show();
+  // FastLED.show();
 }
 
 void BrightnessBoxes::oscillateRightLeft() {
@@ -64,7 +64,7 @@ void BrightnessBoxes::oscillateRightLeft() {
     b.fade_bottom_left(sinBeat);
     b.fade_bottom_right(sinBeat_offset);
   }
-  FastLED.show();
+  // FastLED.show();
 }
 
 void BrightnessBoxes::setModeBox(Box box, BrightnessMode brightnessMode) {

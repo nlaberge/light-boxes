@@ -13,6 +13,8 @@ class ColorBoxes {
     void staticRainbow(Box box) ;
     void setBoxToPalette(Box box, CRGBPalette16 myPal, uint8_t offset);
     void setBoxesToPalette(CRGBPalette16 palette, uint8_t offset);
+    void setBoxToPaletteNoise(Box box, CRGBPalette16 myPal);
+    void setBoxesToPaletteNoise(CRGBPalette16 palette);
     void setModeBox(Box box, ColorMode colorMode);
     void setModeBoxes(ColorMode colorMode);
     void cycleModeBoxes();

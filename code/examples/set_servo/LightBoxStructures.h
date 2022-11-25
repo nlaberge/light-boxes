@@ -6,6 +6,8 @@ enum ColorMode {
   Black,
   StaticRainbow,
   GradientPalette_cute,
+  GradientPalette_cute_flow,
+  Lava,
 };
 
 enum WaveMode {
