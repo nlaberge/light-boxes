@@ -23,6 +23,8 @@ class Controller {
     TrellisLeds get_leds();
     LedRow* get_row(int row);
     CRGB* get_led(LedRow* ledRowPointer, int col);
+    uint8_t* get_servo(LedRow* ledRowPointer, int servo_index);
+    void update_servos();
     void set_led(int row, int col, CRGB c);
     void set_row(int row, CRGB c);
     void set_col(int col, CRGB c);

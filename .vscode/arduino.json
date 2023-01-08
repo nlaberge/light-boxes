@@ -1,5 +1,5 @@
 {
-    "port": "/dev/tty.usbmodem141401",
+    "port": "/dev/tty.usbmodem142101",
     "board": "arduino:avr:mega",
     "sketch": "code/examples/set_servo/set_servo.ino",
     "programmer": "arduino:arduinoisp",

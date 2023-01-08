@@ -19,6 +19,12 @@ void Controller::initialize_leds(){
   ledRow0.col5 = CRGB::Orange;
   ledRow0.col6 = CRGB::Magenta;
   ledRow0.col7 = CRGB::Cyan;
+  ledRow0.servo0 = 10; //servo values, which will be shifted up by SERVOMIN on trellis
+  ledRow0.servo1 = 120;
+  ledRow0.servo2 = 120;
+  ledRow0.servo3 = 120;
+  ledRow0.servo4 = 120;
+  ledRow0.servo5 = 120;
 
   ledRow1.row = 1;
   ledRow1.col0 = CRGB::Red;
@@ -58,6 +64,7 @@ void Controller::initialize_leds(){
 
 void Controller::tick(){
   mode_set_boxes();
+  update_servos();
   // ColorBoxes colorBoxes = ColorBoxes(boxes);
   // colorBoxes.tickBoxesFromInfo(boxes);
 }
@@ -116,10 +123,47 @@ CRGB* Controller::get_led(LedRow* ledRowPointer, int col){
   }
 }
 
+uint8_t* Controller::get_servo(LedRow* ledRowPointer, int servo_index){
+  switch (servo_index)
+  {
+  case 0:
+    return &(ledRowPointer->servo0);
+    break;
+  case 1:
+    return &(ledRowPointer->servo1);
+    break;
+  case 2:
+    return &(ledRowPointer->servo2);
+    break;
+  case 3:
+    return &(ledRowPointer->servo3);
+    break;
+  case 4:
+    return &(ledRowPointer->servo4);
+    break;
+  case 5:
+    return &(ledRowPointer->servo5);
+    break;
+  }
+}
+
 void Controller::set_led(int row, int col, CRGB c){
   LedRow* ledRow = get_row(row);
   CRGB* led = get_led(ledRow, col);
   * led = c; //Yessss
+}
+
+void Controller::update_servos(){
+  for (int i = 0; i < boxes.num_boxes; i++)
+  {
+    // get servo value
+    Box box = boxes.get_box(i);
+    uint8_t servo_value = (box.servo_value);
+    // set servo in ledRow
+    LedRow* ledRow = get_row(0); // only save servo information to row 0
+    uint8_t* servo = get_servo(ledRow, i);
+    * servo = servo_value; //TODO:  does this work? might need to make servo_value into pointer?
+  }
 }
 
 void Controller::set_row(int row, CRGB c){
@@ -253,7 +297,6 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
       {
       colorBoxes.cycleModeBoxes();
       }
-      
     }
   }
 }

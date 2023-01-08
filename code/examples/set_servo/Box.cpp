@@ -1,19 +1,19 @@
 
 #include "Box.h"
 
-Box::Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s){
+Box::Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,uint8_t servo_index){
   top_left=a;
   bottom_left=b;
   bottom_right=c;
   top_right=d;
-  servo = s;
-  servo_max = 100;
-  servo_min = 30;
+  servo_index = servo_index;
+  servo_value = 30;
+  servo_max = 120; //100
+  servo_min = 0; //30
   boxInfo = boxInfo;
   boxInfo.colorMode = StaticRainbow;
   boxInfo.waveMode = Open;
   boxInfo.brightnessMode = On;
-  boxInfo.servoPin = s->pin; //had to change servo library to make pin public
 };
 
 void Box::set_top_right(CRGB color){
@@ -53,23 +53,17 @@ void Box::fade_all(int fade_by){
   fade_top_left(fade_by);
   fade_bottom_left(fade_by);
 }
-void Box::detach_servo(){
-  servo->detach();
-}
-void Box::attach_servo(){
-  servo->attach(boxInfo.servoPin);
-}
+
+
+
+
 void Box::set_servo(int pos){
-  int servo_pos = read_servo();
-  // attach_servo();
-  if (servo_pos != pos){
-    servo->write(pos);
-  }
-  // FastLED.delay(200);
-  // detach_servo();
+  Serial.println(pos);
+  servo_value = constrain(pos, servo_min, servo_max);
 }
+
 int Box::read_servo(){
-  return servo -> read()+1; //note: setting to 30 reads 29, setting to 100 reads 99, so fixed
+  return servo_value;
 }
 BoxInfo* Box::get_box_info(){
   return &boxInfo;

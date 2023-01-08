@@ -48,6 +48,12 @@ struct LedRow
   CRGB col5;
   CRGB col6;
   CRGB col7;
+  uint8_t servo0; //servo values, which will be shifted up by SERVOMIN on trellis
+  uint8_t servo1;
+  uint8_t servo2;
+  uint8_t servo3;
+  uint8_t servo4;
+  uint8_t servo5;
 };
 
 struct TrellisLeds {

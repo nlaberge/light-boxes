@@ -25,20 +25,20 @@ uint8_t updateRow = 0;
 CRGB leds[NUM_LEDS];
 CRGB leds_prev[NUM_LEDS];
 
-Adafruit_TiCoServo myservo0;  // create servo object to control a servo
-Adafruit_TiCoServo myservo1;  // create servo object to control a servo
-Adafruit_TiCoServo myservo2;  // create servo object to control a servo
-Adafruit_TiCoServo myservo3;  // create servo object to control a servo
-Adafruit_TiCoServo myservo4;  // create servo object to control a servo
-Adafruit_TiCoServo myservo5;  // create servo object to control a servo
+// Adafruit_TiCoServo myservo0;  // create servo object to control a servo
+// Adafruit_TiCoServo myservo1;  // create servo object to control a servo
+// Adafruit_TiCoServo myservo2;  // create servo object to control a servo
+// Adafruit_TiCoServo myservo3;  // create servo object to control a servo
+// Adafruit_TiCoServo myservo4;  // create servo object to control a servo
+// Adafruit_TiCoServo myservo5;  // create servo object to control a servo
 
 //construct box objects
-Box box0(&leds[23],&leds[22],&leds[21],&leds[20],&myservo0); //furthest left
-Box box1(&leds[19],&leds[18],&leds[17],&leds[16],&myservo1);
-Box box2(&leds[15],&leds[14],&leds[13],&leds[12],&myservo2);
-Box box3(&leds[11],&leds[10],&leds[9],&leds[8],&myservo3);
-Box box4(&leds[7],&leds[6],&leds[5],&leds[4],&myservo4);
-Box box5(&leds[3],&leds[2],&leds[1],&leds[0],&myservo5); //furthest right
+Box box0(&leds[23],&leds[22],&leds[21],&leds[20],0); //furthest left
+Box box1(&leds[19],&leds[18],&leds[17],&leds[16],1);
+Box box2(&leds[15],&leds[14],&leds[13],&leds[12],2);
+Box box3(&leds[11],&leds[10],&leds[9],&leds[8],3);
+Box box4(&leds[7],&leds[6],&leds[5],&leds[4],4);
+Box box5(&leds[3],&leds[2],&leds[1],&leds[0],5); //furthest right
 
 //construct boxes object
 Boxes boxes = Boxes(&box0,&box1,&box2,&box3,&box4,&box5);
@@ -104,11 +104,11 @@ void loop(){
     deep_copy_array(leds, leds_prev, NUM_LEDS);
     FastLED.show();
   }
-  // FastLED.show();
+  Serial.println(boxes.get_box(0).servo_value);
 }
 
 void requestEvent(){
-  // send trellis led information
+  // send trellis led information and servo information
     TrellisLeds trellisLeds = controller.get_leds();
     switch (updateRow)
     {

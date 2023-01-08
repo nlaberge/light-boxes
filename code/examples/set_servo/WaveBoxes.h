@@ -14,7 +14,7 @@ class WaveBoxes {
     void setModeBoxes(WaveMode waveMode);
     void cycleModeBoxes();
     WaveMode cycleModeBox(Box box);
-    void tickBoxFromInfo(Box box);
+    void tickBoxFromInfo(Box* box);
     void tickBoxesFromInfo(Boxes boxes);
     
   private:

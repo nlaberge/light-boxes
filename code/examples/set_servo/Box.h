@@ -10,11 +10,12 @@ public:
   CRGB* top_right;
   CRGB* bottom_left;
   CRGB* bottom_right;
-  Adafruit_TiCoServo* servo;
+  uint8_t servo_index;
+  uint8_t servo_value;
   uint8_t servo_max;
   uint8_t servo_min;
   BoxInfo boxInfo;
-  Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d,Adafruit_TiCoServo  * s);
+  Box(CRGB* a,CRGB* b,CRGB* c,CRGB* d, uint8_t servo_index);
   void set_top_right(CRGB color);
   void set_bottom_right(CRGB color);
   void set_top_left(CRGB color);
