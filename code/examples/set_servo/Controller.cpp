@@ -63,7 +63,18 @@ void Controller::initialize_leds(){
 }
 
 void Controller::tick(){
-  mode_set_boxes();
+  switch (controller_mode)
+  {
+  case 0:
+    mode_set_boxes();
+    break;
+  case 1:
+    mode_play_notes();
+    break;
+  default:
+    break;
+  }
+  
   update_servos();
   // ColorBoxes colorBoxes = ColorBoxes(boxes);
   // colorBoxes.tickBoxesFromInfo(boxes);
@@ -166,6 +177,33 @@ void Controller::update_servos(){
   }
 }
 
+void Controller::handle_mode_change(){
+  // press 30 and 31 at same time to change mode forward
+  if (button_pressed[30] && button_pressed[31])
+  {
+    controller_mode++;
+  }
+  // press 25 and 24 at same time to change mode backward
+  if (button_pressed[25] && button_pressed[24])
+  {
+    controller_mode--;
+  }
+  // wrap around
+  if (controller_mode > NUM_MODES - 1) 
+  {
+    controller_mode = 0;
+  }
+  else if (controller_mode < 0)
+  {
+    controller_mode = NUM_MODES - 1;
+  }
+}
+
+void Controller::update_button_pressed(ButtonPress buttonPress){
+  // update button_pressed array with new button press
+  button_pressed[buttonPress.key] = buttonPress.pressed;
+}
+
 void Controller::set_row(int row, CRGB c){
   for (int col = 0; col < NUM_COLS; col++)
   {
@@ -216,7 +254,20 @@ void Controller::mirror_row_open_closed_status(int row){
 }
 
 void Controller::handle_button_event(ButtonPress buttonPress){
-  mode_set_boxes(buttonPress);
+  update_button_pressed(buttonPress);
+  handle_mode_change();
+  switch (controller_mode)
+  {
+  case 0:
+    mode_set_boxes(buttonPress);
+    break;
+  case 1: 
+    mode_play_notes(buttonPress);
+    break;
+  default:
+    break;
+  }
+  
   // WaveBoxes waveBoxes = WaveBoxes(boxes);
   // waveBoxes.closeAll();
 }
@@ -301,4 +352,64 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
   }
 }
 
+
+DEFINE_GRADIENT_PALETTE( gp_play ) {
+  0,     0,    0,  255,   //?
+  127,   255,  0,    170,   //pink
+  255,   0,    212,  0}; //?
+
+
+void Controller::mode_play_notes(){
+  CRGBPalette16 myPal = gp_play;
+  // Set a color gradient to the trellis using set_led
+  for (uint16_t i = 0; i < NUM_TRELLIS_LEDS; i++)
+  {
+    
+    CRGB c = ColorFromPalette(myPal,i*(255/NUM_TRELLIS_LEDS));
+    set_led(i/8,i%8,c);
+  }
+
+  //fade all of the boxes
+  for (int i = 0; i < boxes.num_boxes; i++)
+  {
+    Box box = boxes.get_box(i);
+    box.fade_all(1);
+  }
+
+  //open or close box by luminosity of top left led
+  WaveBoxes waveBoxes = WaveBoxes(boxes);
+  waveBoxes.mirrorBrightness();
+
+  //loop through the currently pressed buttons. 
+  //Light the nearest box according to position
+  for (int i = 0; i < NUM_TRELLIS_LEDS; i++)
+  {
+    if (button_pressed[i])
+    {
+      int button_col = i%8;
+      int box_i = 0;
+      if (button_col == 0 || button_col == 1)
+      {
+        box_i = 0;
+      }
+      else if (button_col == 6 || button_col == 7)
+      {
+        box_i = 5;
+      }
+      else
+      {
+        box_i = button_col-1;
+      }
+      Box box = boxes.get_box(box_i);
+      CRGB c = ColorFromPalette(myPal,i*(255/NUM_TRELLIS_LEDS));
+      box.set_all(c);
+    }
+  }
+
+}
+  
+void Controller::mode_play_notes(ButtonPress buttonPress){
+
+  return;  
+}
 

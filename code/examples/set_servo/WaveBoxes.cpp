@@ -22,6 +22,18 @@ void WaveBoxes::runHalfPeriodOffset() {
   }
 }
 
+void WaveBoxes::mirrorBrightness() {
+  for (int i = 0; i < boxes.num_boxes; i++)
+  {
+    Box* b = boxes.get_box_ref(i);
+    CRGB* c = b->top_left; //use top left for brightness
+    int brightness = c->getLuma();
+    uint8_t theta = 0;
+    theta = map(brightness, 0, 100,b->servo_min,b->servo_max);
+    b->set_servo(theta);
+  }
+}
+
 void WaveBoxes::setModeBox(Box box, WaveMode waveMode) {
   Box *b = boxes.get_box_ref(box.get_box_info()->boxIndex);
   b->setWaveMode(waveMode);

@@ -10,6 +10,7 @@ class WaveBoxes {
     WaveBoxes(Boxes bxs);
     void runFullPeriodOffset();
     void runHalfPeriodOffset();
+    void mirrorBrightness();
     void setModeBox(Box box, WaveMode waveMode);
     void setModeBoxes(WaveMode waveMode);
     void cycleModeBoxes();

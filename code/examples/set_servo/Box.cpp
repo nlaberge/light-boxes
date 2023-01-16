@@ -58,7 +58,6 @@ void Box::fade_all(int fade_by){
 
 
 void Box::set_servo(int pos){
-  Serial.println(pos);
   servo_value = constrain(pos, servo_min, servo_max);
 }
 

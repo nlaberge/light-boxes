@@ -58,7 +58,8 @@ void setup() {
   // myservo4.attach(7); 
   // myservo5.attach(8);
 
-  FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, BGR, DATA_RATE_MHZ(24)>(leds, NUM_LEDS);  // BGR ordering is typical
+  // FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, BGR, DATA_RATE_MHZ(24)>(leds, NUM_LEDS);  // BGR ordering is typical
+  FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, BGR>(leds, NUM_LEDS);  // BGR ordering is typical
 
   // for i2c comms
   Wire.begin(8);                // join i2c bus with address #8
@@ -104,7 +105,6 @@ void loop(){
     deep_copy_array(leds, leds_prev, NUM_LEDS);
     FastLED.show();
   }
-  Serial.println(boxes.get_box(0).servo_value);
 }
 
 void requestEvent(){
