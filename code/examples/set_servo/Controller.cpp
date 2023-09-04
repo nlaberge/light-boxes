@@ -354,9 +354,16 @@ void Controller::mode_set_boxes(ButtonPress buttonPress){
 
 
 DEFINE_GRADIENT_PALETTE( gp_play ) {
-  0,     0,    0,  255,   //?
-  127,   255,  0,    170,   //pink
-  255,   0,    212,  0}; //?
+  0,     255,    0,  0,   //?
+  63,     237,    255,  0,   //?
+  64,     0,    212,  255,   //?
+  127,     53,    255,  0,   //?
+  128,     0,    6,  255,   //?
+  191,     255,    131,  0,   //?
+  192,     255,    0,  224,   //?
+  255,     134,    255,  0,   //?
+};
+  
 
 
 void Controller::mode_play_notes(){

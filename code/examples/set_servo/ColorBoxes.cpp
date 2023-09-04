@@ -4,10 +4,14 @@ ColorBoxes::ColorBoxes(Boxes bxs){
   boxes = bxs;
 };
 
-DEFINE_GRADIENT_PALETTE( gp_cute ) {
-  0,     0,    212,  255,   //cyan
-  127,   255,  0,    170,   //pink
-  255,   0,    212,  255}; //cyan
+// DEFINE_GRADIENT_PALETTE( gp_cute ) {
+//   0,     0,    212,  255,   //cyan
+//   127,   255,  0,    170,   //pink
+//   255,   0,    212,  255}; //cyan
+DEFINE_GRADIENT_PALETTE( gp_cute ) { // for st patricks day
+  0,     0,    255,  0,   //green
+  127,   0,  0,    0,   //black
+  255,   0,    255,  0}; //green
 
 CRGBPalette16  lavaPalette = CRGBPalette16(
   CRGB::DarkRed,  CRGB::Maroon,   CRGB::DarkRed,  CRGB::Maroon,
